@@ -7,4 +7,4 @@
 ## Routes
 All routes are handled by [swagger-express-mw](https://www.npmjs.com/package/swagger-express-mw).
  
-After you start the server you can visit [http://localhost:3000/api/swagger](http://localhost:3000/api/swaggger) to see all routes descrptions and requirements
+After you start the server you can visit [http://localhost:3000/api/swagger](http://localhost:3000/api/swagger) to see all routes descrptions and requirements
