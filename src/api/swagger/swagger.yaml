@@ -1,0 +1,186 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Debitoor API
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+
+  /users:
+    x-swagger-router-controller: userController
+    get:
+      description: Return all users
+      operationId: findUsers
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /users/{userId}:
+    x-swagger-router-controller: userController
+    get:
+      description: Return user by id
+      operationId: findUserById
+      parameters:
+        - name: userId
+          in: path
+          description: The ID of the user
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/User'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /customers:
+    x-swagger-router-controller: customerController
+    get:
+      description: Return all customers
+      operationId: findCustomers
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Customer'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /customers/{customerId}:
+    x-swagger-router-controller: customerController
+    get:
+      description: Return customer by id
+      operationId: findCustomerById
+      parameters:
+        - name: customerId
+          in: path
+          description: The ID of the customer
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/Customer'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /countries:
+    x-swagger-router-controller: countryController
+    get:
+      description: Return all countries
+      operationId: findCountries
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Country'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /resources:
+    x-swagger-router-controller: resourceController
+    get:
+      description: Return all resources
+      operationId: findResources
+      responses:
+        '200':
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /swagger:
+    x-swagger-pipe: swagger_raw
+
+definitions:
+  User:
+    properties:
+      id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+        type: string
+      city:
+        type: string
+    required:
+      - id
+      - first_name
+      - last_name
+      - city
+
+  Customer:
+    properties:
+      id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+        type: string
+      address:
+        type: object
+        properties:
+          street:
+            type: string
+          city:
+            type: string
+          state:
+            type: string
+          zip:
+            type: string
+        required:
+          - street
+          - city
+          - state
+          - zip
+    required:
+      - id
+      - first_name
+      - last_name
+      - address
+
+  Country:
+    properties:
+      name:
+        type: string
+      code:
+        type: string
+    required:
+      - name
+      - code
+
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+
